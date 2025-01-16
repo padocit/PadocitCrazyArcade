@@ -179,6 +179,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor\Balloon.cpp" />
     <ClCompile Include="Actor\Block.cpp" />
     <ClCompile Include="Actor\Box.cpp" />
     <ClCompile Include="Actor\Ground.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor\Balloon.h" />
     <ClInclude Include="Actor\Block.h" />
     <ClInclude Include="Actor\Box.h" />
     <ClInclude Include="Actor\Ground.h" />
