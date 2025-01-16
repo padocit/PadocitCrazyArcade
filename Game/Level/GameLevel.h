@@ -22,16 +22,20 @@ public:
 	// 플레이어 이동 가능 유무
 	bool CanPlayerMove(const Vec2& pos);
 
+	// 물풍선 터짐 범위 가능 유무
+	bool CanBalloonBomb(const Vec2& pos);
+
 	// 물풍선 추가
 	void AddBalloon(Balloon* balloon);
 
 private:
+
 	// TODD: 게임 결과
 	//bool CheckGameClear();
 
 private:
 	// 렌더링 순서 결정
-	Vector<RenderableActor*> map; // walls, floors (Up-cast)
+	Vector<RenderableActor*> map; // wall, ground (Up-cast)
 	Vector<Block*> blocks; // TODO: block <- box (상속, 업캐스팅 저장?)
 	Vector<Box*> boxes;
 	Vector<Balloon*> balloons;

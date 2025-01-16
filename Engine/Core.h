@@ -29,6 +29,8 @@ enum class Color
 	Red = FOREGROUND_RED,
 	Green = FOREGROUND_GREEN,
 	Blue = FOREGROUND_BLUE,
+	Yellow = FOREGROUND_RED | FOREGROUND_GREEN,
+	Skyblue = FOREGROUND_GREEN | FOREGROUND_BLUE,
 	White = Red + Green + Blue,
 };
 

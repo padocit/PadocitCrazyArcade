@@ -14,6 +14,23 @@ RenderableActor::RenderableActor(const char* image)
 	width = int(strlen(image));
 }
 
+void RenderableActor::SetImage(const char* image)
+{
+	auto length = strlen(image) + 1;
+	char* newImage = new char[length];
+	strcpy_s(newImage, length, image);
+
+	char* temp = this->image;
+	this->image = newImage;
+	this->width = int(strlen(image));
+
+	if (temp)
+	{
+		delete temp;  
+		temp = nullptr;
+	}
+}
+
 RenderableActor::~RenderableActor()
 {
 	if (image)

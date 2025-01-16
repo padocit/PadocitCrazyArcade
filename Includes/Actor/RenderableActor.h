@@ -17,6 +17,9 @@ public:
 	// 충돌 확인 함수
 	bool Intersect(const RenderableActor& other);
 
+	// image 설정
+	void SetImage(const char* image);
+
 	// Getter
 	inline int Width() const { return width; }
 

@@ -26,7 +26,7 @@ void Player::Update(float deltaTime)
 	if (Engine::Get().GetKeyDown(VK_SPACE))
 	{
 		// GameLevel의 balloons에 추가
-		refLevel->AddBalloon(new Balloon(this->pos));
+		refLevel->AddBalloon(new Balloon(this->pos, refLevel));
 	}
 
 	// Move

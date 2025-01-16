@@ -117,8 +117,6 @@ void GameLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	// TODO: Player로부터 Balloons 받아오기.
-
 	// TODO: 승/패
 	// 게임 클리어 = 게임 종료
 	if (isGameClear)
@@ -141,7 +139,6 @@ void GameLevel::Update(float deltaTime)
 	}
 }
 
-// TODO: balloon 그리기
 void GameLevel::Render() 
 {
 	// Engine-Level-Render 사용 X
@@ -199,9 +196,10 @@ void GameLevel::Render()
 		box->Render();
 	}
 
-	for (auto& ballon : balloons)
+	// Balloon
+	for (auto& balloon : balloons)
 	{
-		ballon->Render();
+		balloon->Render();
 	}
 
 	// Player
@@ -299,6 +297,35 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 		if (block->Pos() == pos)
 		{
 			return false;
+		}
+	}
+	// Balloon = 이동 불가
+	for (auto& balloon : balloons)
+	{
+		if (balloon->Pos() == pos)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool GameLevel::CanBalloonBomb(const Vec2& pos)
+{
+	// TODO: 구현 (Motive = CanPlayerMove)
+	// wall: 그리기 불가능
+	// ground, block, box, player: 그림
+
+	for (auto& actor : map)
+	{
+		if (actor->Pos() == pos)
+		{
+			// RTTI
+			if (actor->As<Wall>()) // bomb 불가
+			{
+				return false;
+			}
 		}
 	}
 
