@@ -2,6 +2,7 @@
 #include "Engine/Engine.h"
 #include "Game/Game.h"
 #include "Level/GameLevel.h"
+#include "Actor/Balloon.h"
 
 Player::Player(const Vec2& pos, GameLevel* level)
 	: RenderableActor("P"), refLevel(level)
@@ -19,6 +20,13 @@ void Player::Update(float deltaTime)
 	{
 		//Engine::Get().QuitGame();
 		Game::Get().ToggleMenu();
+	}
+
+	// 물풍선 생성
+	if (Engine::Get().GetKeyDown(VK_SPACE))
+	{
+		// GameLevel의 balloons에 추가
+		refLevel->AddBalloon(new Balloon(this->pos));
 	}
 
 	// Move

@@ -1,8 +1,10 @@
 #pragma once
 
 #include <Actor/RenderableActor.h>
+#include <Container/Vector.h>
 
 class GameLevel;
+class Balloon;
 class Player : public RenderableActor
 {
 	GENERATED_BODY(Player, RenderableActor)

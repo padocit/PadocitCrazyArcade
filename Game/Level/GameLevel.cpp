@@ -6,6 +6,7 @@
 #include "Actor/Box.h"
 #include "Actor/Player.h"
 #include "Actor/Block.h"
+#include "Actor/Balloon.h"
 
 #include "Engine/Timer.h"
 
@@ -116,6 +117,8 @@ void GameLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
+	// TODO: Player로부터 Balloons 받아오기.
+
 	// TODO: 승/패
 	// 게임 클리어 = 게임 종료
 	if (isGameClear)
@@ -138,8 +141,11 @@ void GameLevel::Update(float deltaTime)
 	}
 }
 
-void GameLevel::Render() // Engine-Level-Render 사용 X
+// TODO: balloon 그리기
+void GameLevel::Render() 
 {
+	// Engine-Level-Render 사용 X
+
 	/* 최적화: 액터 겹쳐서 그리지 않음 (깜빡임 제거) */
 
 	// Map
@@ -167,6 +173,14 @@ void GameLevel::Render() // Engine-Level-Render 사용 X
 				break;
 			}
 		}
+		for (auto& balloon : balloons)
+		{
+			if (actor->Pos() == balloon->Pos())
+			{
+				shouldRender = false;
+				break;
+			}
+		}
 
 		if (shouldRender)
 		{
@@ -180,9 +194,14 @@ void GameLevel::Render() // Engine-Level-Render 사용 X
 	}
 
 	// Box
-	for (auto* box : boxes)
+	for (auto& box : boxes)
 	{
 		box->Render();
+	}
+
+	for (auto& ballon : balloons)
+	{
+		ballon->Render();
 	}
 
 	// Player
@@ -284,6 +303,13 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 	}
 
 	return true;
+}
+
+// 일종의 외부 setter
+void GameLevel::AddBalloon(Balloon* balloon)
+{
+	actors.PushBack(balloon); // 메모리 관리
+	balloons.PushBack(balloon); // 렌더링
 }
 
 //bool GameLevel::CheckGameClear()

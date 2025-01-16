@@ -8,6 +8,7 @@ class RenderableActor;
 class Player;
 class Block;
 class Box;
+class Balloon;
 class GameLevel : public Level
 {
 	GENERATED_BODY(GameLevel, Level)
@@ -21,6 +22,9 @@ public:
 	// 플레이어 이동 가능 유무
 	bool CanPlayerMove(const Vec2& pos);
 
+	// 물풍선 추가
+	void AddBalloon(Balloon* balloon);
+
 private:
 	// TODD: 게임 결과
 	//bool CheckGameClear();
@@ -30,6 +34,7 @@ private:
 	Vector<RenderableActor*> map; // walls, floors (Up-cast)
 	Vector<Block*> blocks; // TODO: block <- box (상속, 업캐스팅 저장?)
 	Vector<Box*> boxes;
+	Vector<Balloon*> balloons;
 
 	Player* player = nullptr;
 	
