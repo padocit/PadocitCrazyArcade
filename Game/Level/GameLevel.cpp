@@ -172,10 +172,30 @@ void GameLevel::Render()
 		}
 		for (auto& balloon : balloons)
 		{
-			if (actor->Pos() == balloon->Pos())
+			// bomb 상태라면, balloon이 가진 offset 만큼 검사
+			if (balloon->GetBalloonState() == BalloonState::Bomb)
 			{
-				shouldRender = false;
-				break;
+				// x
+				if (actor->Pos().x >= balloon->Pos().x - balloon->BombOffset()
+					&& actor->Pos().x <= balloon->Pos().x + balloon->BombOffset())
+				{
+					shouldRender = false;
+				}
+
+				// y
+				if (actor->Pos().y >= balloon->Pos().y - balloon->BombOffset()
+					&& actor->Pos().y <= balloon->Pos().y + balloon->BombOffset())
+				{
+					shouldRender = false;
+				}
+			}
+			else
+			{
+				if (actor->Pos() == balloon->Pos())
+				{
+					shouldRender = false;
+					//break;
+				}
 			}
 		}
 

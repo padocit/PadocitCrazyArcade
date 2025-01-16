@@ -18,7 +18,6 @@ enum class BalloonState
 class GameLevel;
 class Balloon : public RenderableActor
 {
-
 	GENERATED_BODY(Balloon, RenderableActor)
 
 public:
@@ -30,7 +29,10 @@ public:
 	void SetStateBomb();
 	void SetStateLock();
 
-	inline BalloonState GetBalloonState() { return balloonState; }
+public:
+	// Getter
+	inline BalloonState GetBalloonState() const { return balloonState; }
+	inline int BombOffset() const { return bombOffset; }
 
 private:
 	BalloonState balloonState;
@@ -39,6 +41,9 @@ private:
 	float elapsedTime;
 	float bombTime;
 
-	// 게임 레벨 참조 (CanPlayerMove() 사용)
+	// 물줄기 칸 수
+	int bombOffset = 1; // TODO: 아이템 먹으면 증가
+
+	// 게임 레벨 참조 (CanBalloonBomb() 사용)
 	GameLevel* refLevel = nullptr;
 };
