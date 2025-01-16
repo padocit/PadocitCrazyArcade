@@ -38,23 +38,19 @@ void Balloon::Render()
 		// 4방향 그리기
 		if (refLevel->CanBalloonBomb(left)) // left
 		{
-			Game::Get().SetCursorPos(left);
-			Log("%s", this->image);
+			RenderConsole(left);
 		}
 		if (refLevel->CanBalloonBomb(right)) // right
 		{
-			Game::Get().SetCursorPos(right);
-			Log("%s", this->image);
+			RenderConsole(right);
 		}
 		if (refLevel->CanBalloonBomb(up)) // up
 		{
-			Game::Get().SetCursorPos(up);
-			Log("%s", this->image);
+			RenderConsole(up);
 		}
 		if (refLevel->CanBalloonBomb(down)) // down
 		{
-			Game::Get().SetCursorPos(down);
-			Log("%s", this->image);
+			RenderConsole(down);
 		}
 	}
 }

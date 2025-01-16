@@ -14,6 +14,9 @@ public:
 	virtual void Render() override;
 	virtual void SetPos(const Vec2& newPos) override;
 
+	// 화면에 그리는 함수
+	void RenderConsole(const Vec2& pos);
+
 	// 충돌 확인 함수
 	bool Intersect(const RenderableActor& other);
 

@@ -44,17 +44,7 @@ void RenderableActor::Render()
 {
 	Super::Render();
 
-	// 색상(material) 설정
-	SetColor(color);
-
-	// 1. 콘솔 좌표 옮기기
-	Engine::Get().SetCursorPos(pos);
-
-	// 2. 콘솔 출력
-	Log(image);
-
-	// 색상(material) 복구
-	SetColor(Color::White);
+	RenderConsole(pos);
 }
 
 void RenderableActor::SetPos(const Vec2& newPos)
@@ -66,6 +56,17 @@ void RenderableActor::SetPos(const Vec2& newPos)
 	// 위치 업데이트
 	Super::SetPos(newPos);
 
+}
+
+void RenderableActor::RenderConsole(const Vec2& pos)
+{
+	// 1. 콘솔 좌표 옮기기
+	Engine::Get().SetCursorPos(pos);
+
+	// 2. 색상(material) 설정 -> 출력 -> 색상 복구
+	SetColor(color);
+	Log(image);
+	SetColor(Color::White);
 }
 
 bool RenderableActor::Intersect(const RenderableActor& other)
