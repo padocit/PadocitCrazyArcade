@@ -43,17 +43,17 @@ void Balloon::Render()
 		}
 		if (refLevel->CanBalloonBomb(right)) // right
 		{
-			Game::Get().SetCursorPos(left);
+			Game::Get().SetCursorPos(right);
 			Log("%s", this->image);
 		}
 		if (refLevel->CanBalloonBomb(up)) // up
 		{
-			Game::Get().SetCursorPos(left);
+			Game::Get().SetCursorPos(up);
 			Log("%s", this->image);
 		}
 		if (refLevel->CanBalloonBomb(down)) // down
 		{
-			Game::Get().SetCursorPos(left);
+			Game::Get().SetCursorPos(down);
 			Log("%s", this->image);
 		}
 	}
