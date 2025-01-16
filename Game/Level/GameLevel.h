@@ -18,7 +18,7 @@ public:
 
 	virtual void Update(float deltaTime) override;
 	virtual void Render() override;
-	
+
 	// 플레이어 이동 가능 유무
 	bool CanPlayerMove(const Vec2& pos);
 
@@ -41,7 +41,7 @@ private:
 	Vector<Balloon*> balloons;
 
 	Player* player = nullptr;
-	
+
 	bool isGameClear = false;
 
 };

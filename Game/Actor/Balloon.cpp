@@ -3,7 +3,7 @@
 #include "Game/Game.h"
 
 Balloon::Balloon(const Vec2& pos, GameLevel* level)
-	: RenderableActor("O"), 
+	: RenderableActor("O"),
 	elapsedTime(0.0f), bombTime(2.0f), refLevel(level)
 {
 	this->pos = pos;
@@ -30,10 +30,10 @@ void Balloon::Render()
 	if (balloonState == BalloonState::Bomb)
 	{
 		// TODO: 물줄기 확장 => 물줄기 변수 크기 만큼 loop (ex. int step = 2 -> 십자 2칸씩)
-		Vec2 left  = this->pos + Vec2(-1,  0);
-		Vec2 right = this->pos + Vec2( 1,  0);
-		Vec2 up    = this->pos + Vec2( 0, -1);
-		Vec2 down  = this->pos + Vec2( 0,  1);
+		Vec2 left = this->pos + Vec2(-1, 0);
+		Vec2 right = this->pos + Vec2(1, 0);
+		Vec2 up = this->pos + Vec2(0, -1);
+		Vec2 down = this->pos + Vec2(0, 1);
 
 		// 4방향 그리기
 		if (refLevel->CanBalloonBomb(left)) // left

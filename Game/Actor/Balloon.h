@@ -20,7 +20,7 @@ class Balloon : public RenderableActor
 {
 
 	GENERATED_BODY(Balloon, RenderableActor)
-	
+
 public:
 	Balloon(const Vec2& pos, GameLevel* level);
 
@@ -34,7 +34,7 @@ public:
 
 private:
 	BalloonState balloonState;
-	
+
 	// Timer
 	float elapsedTime;
 	float bombTime;

@@ -70,7 +70,7 @@ GameLevel::GameLevel()
 			actors.PushBack(wall); // 메모리 해제(관리)용 저장
 			map.PushBack(wall);    // 렌더링 용 저장
 		}
-		else if (mapChar == '.') 
+		else if (mapChar == '.')
 		{
 			Ground* ground = new Ground(Vec2(xPos, yPos));
 			actors.PushBack(ground);
@@ -93,7 +93,7 @@ GameLevel::GameLevel()
 			map.PushBack(ground);
 
 			Box* box = new Box(Vec2(xPos, yPos));
-			actors.PushBack(box); 
+			actors.PushBack(box);
 			boxes.PushBack(box);
 		}
 		else if (mapChar == 'P') // TODO: Player Random Spawn
@@ -139,7 +139,7 @@ void GameLevel::Update(float deltaTime)
 	}
 }
 
-void GameLevel::Render() 
+void GameLevel::Render()
 {
 	// Engine-Level-Render 사용 X
 
