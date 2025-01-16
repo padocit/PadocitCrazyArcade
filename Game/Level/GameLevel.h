@@ -28,6 +28,9 @@ public:
 	// 물풍선 추가
 	void AddBalloon(Balloon* balloon);
 
+	// 물풍선-block(box) 충돌처리
+	void ProcessCollisionBalloonAndBlock();
+
 private:
 
 	// TODD: 게임 결과

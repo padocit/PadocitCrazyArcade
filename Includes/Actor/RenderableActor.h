@@ -18,7 +18,7 @@ public:
 	void RenderConsole(const Vec2& pos);
 
 	// 충돌 확인 함수
-	bool Intersect(const RenderableActor& other);
+	virtual bool Intersect(const RenderableActor& other);
 
 	// image 설정
 	void SetImage(const char* image);

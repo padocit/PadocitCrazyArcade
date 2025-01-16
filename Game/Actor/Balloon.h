@@ -26,6 +26,8 @@ public:
 	virtual void Update(float deltaTime) override; // TODO: ÇÊ¿ä?
 	virtual void Render() override;
 
+	virtual bool Intersect(const RenderableActor& other) override;
+
 	void SetStateBomb();
 	void SetStateLock();
 

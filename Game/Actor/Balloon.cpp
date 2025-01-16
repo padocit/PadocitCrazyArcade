@@ -1,6 +1,7 @@
 #include "Balloon.h"
 #include "Level/GameLevel.h"
 #include "Game/Game.h"
+#include "Math/Vec2.h"
 
 Balloon::Balloon(const Vec2& pos, GameLevel* level)
 	: RenderableActor("O"),
@@ -53,6 +54,42 @@ void Balloon::Render()
 			RenderConsole(down);
 		}
 	}
+}
+
+bool Balloon::Intersect(const RenderableActor& other)
+{
+	// bomb 상태라면 범위(offset) 내 block(box) destroy
+
+	// TODO: 세로 = 1칸 가정중 (필요 시 height 추가)
+	
+	// other
+	Vec2 otherPos = other.Pos();
+	int otherMinX = otherPos.x;
+	int otherMaxX = otherPos.x + other.Width();
+	int otherY = otherPos.y; 
+
+	/* 가로줄 */
+	// this 
+	int minX = pos.x - bombOffset;
+	int maxX = pos.x + bombOffset;
+
+	if (otherMinX > maxX || otherMaxX < minX)
+	{
+		return false;
+	}
+
+	/* 세로줄 */
+	// this 
+	int minY = pos.y - bombOffset;
+	int maxY = pos.y + bombOffset;
+
+	if (otherY > maxY || otherY < minY)
+	{
+		return false;
+	}
+
+	// 범위 밖 아니라면 충돌!
+	return true;
 }
 
 void Balloon::SetStateBomb()

@@ -117,6 +117,10 @@ void GameLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
+	// TODO: 물풍선 순회 - bomb 상태라면 범위(offset) 내 block(box) destroy
+	// ProcessCollision 호출 -> Intersect 호출
+	ProcessCollisionBalloonAndBlock();
+
 	// TODO: 승/패
 	// 게임 클리어 = 게임 종료
 	if (isGameClear)
@@ -154,7 +158,7 @@ void GameLevel::Render()
 		}
 
 		bool shouldRender = true;
-		for (auto& block : blocks)
+		for (auto* block : blocks)
 		{
 			if (actor->Pos() == block->Pos())
 			{
@@ -162,7 +166,7 @@ void GameLevel::Render()
 				break;
 			}
 		}
-		for (auto& box : boxes)
+		for (auto* box : boxes)
 		{
 			if (actor->Pos() == box->Pos())
 			{
@@ -170,7 +174,7 @@ void GameLevel::Render()
 				break;
 			}
 		}
-		for (auto& balloon : balloons)
+		for (auto* balloon : balloons)
 		{
 			// bomb 상태라면, balloon이 가진 offset 만큼 검사
 			if (balloon->GetBalloonState() == BalloonState::Bomb)
@@ -205,19 +209,19 @@ void GameLevel::Render()
 		}
 	}
 	// Block
-	for (auto& block : blocks)
+	for (auto* block : blocks)
 	{
 		block->Render();
 	}
 
 	// Box
-	for (auto& box : boxes)
+	for (auto* box : boxes)
 	{
 		box->Render();
 	}
 
 	// Balloon
-	for (auto& balloon : balloons)
+	for (auto* balloon : balloons)
 	{
 		balloon->Render();
 	}
@@ -266,7 +270,7 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 				return false;
 			}
 		}
-		for (auto& block : blocks) // 블럭에 막힘
+		for (auto* block : blocks) // 블럭에 막힘
 		{
 			if (block->Pos() == newPosition)
 			{
@@ -312,7 +316,7 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 		return false;
 	}
 	// Block = 이동 불가
-	for (auto& block : blocks)
+	for (auto* block : blocks)
 	{
 		if (block->Pos() == pos)
 		{
@@ -320,7 +324,7 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 		}
 	}
 	// Balloon = 이동 불가
-	for (auto& balloon : balloons)
+	for (auto* balloon : balloons)
 	{
 		if (balloon->Pos() == pos)
 		{
@@ -337,7 +341,7 @@ bool GameLevel::CanBalloonBomb(const Vec2& pos)
 	// wall: 그리기 불가능
 	// ground, block, box, player: 그림
 
-	for (auto& actor : map)
+	for (auto* actor : map)
 	{
 		if (actor->Pos() == pos)
 		{
@@ -357,6 +361,41 @@ void GameLevel::AddBalloon(Balloon* balloon)
 {
 	actors.PushBack(balloon); // 메모리 관리
 	balloons.PushBack(balloon); // 렌더링
+}
+
+void GameLevel::ProcessCollisionBalloonAndBlock()
+{
+	// 예외처리
+	if (balloons.Size() == 0 || (blocks.Size() == 0 && boxes.Size() == 0))
+	{
+		return;
+	}
+
+	// 순회 (bomb인 경우만 충돌 감지)
+	for (auto* balloon : balloons)
+	{ 
+		if (balloon->GetBalloonState() != BalloonState::Bomb)
+		{
+			continue;
+		}
+
+		for (int i = 0; i < blocks.Size(); ++i)
+		{
+			Block* block = blocks[i];
+
+			if (!block->IsActive())
+			{
+				continue;
+			}
+
+			// 충돌 처리
+			if (balloon->Intersect(*block))
+			{
+				blocks.Erase(i);
+				block->Destroy();
+			}
+		}
+	}
 }
 
 //bool GameLevel::CheckGameClear()

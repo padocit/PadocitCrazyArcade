@@ -61,6 +61,19 @@ public:
 		--size;
 	}
 
+	int Find(const T& value)
+	{
+		for (int i = 0; i < size; ++i)
+		{
+			if (data[i] == value)
+			{
+				return i;
+			}
+		}
+
+		return -1; // failed
+	}
+
 	size_t Size() const
 	{
 		return size;
