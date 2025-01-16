@@ -3,7 +3,7 @@
 
 class Box : public RenderableActor
 {
-	RTTI_DECLARATIONS(Box, RenderableActor)
+	GENERATED_BODY(Box, RenderableActor)
 
 public:
 	Box(const Vec2& pos);

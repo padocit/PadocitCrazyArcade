@@ -41,7 +41,7 @@ public:
 	}
 };
 
-#define RTTI_DECLARATIONS(Type, ParentType)												\
+#define GENERATED_BODY(Type, ParentType)												\
 public:																					\
 	using Super = ParentType;															\
 	virtual const size_t& TypeIdInstance() const { return Type::TypeIdClass(); }		\

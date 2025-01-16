@@ -5,7 +5,7 @@
 class GameLevel;
 class Player : public RenderableActor
 {
-	RTTI_DECLARATIONS(Player, RenderableActor)
+	GENERATED_BODY(Player, RenderableActor)
 
 public:
 	Player(const Vec2& pos, GameLevel* level);

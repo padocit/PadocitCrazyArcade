@@ -10,7 +10,7 @@ class Actor;
 class ENGINE_API Level : public RTTI
 {
 	// RTTI Á¤ÀÇ
-	RTTI_DECLARATIONS(Level, RTTI)
+	GENERATED_BODY(Level, RTTI)
 
 public:
 	Level();

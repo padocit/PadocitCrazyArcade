@@ -4,7 +4,7 @@
 
 class Ground : public RenderableActor
 {
-	RTTI_DECLARATIONS(Ground, RenderableActor)
+	GENERATED_BODY(Ground, RenderableActor)
 
 public:
 	Ground(const Vec2& pos);

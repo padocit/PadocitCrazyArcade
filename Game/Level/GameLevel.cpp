@@ -5,6 +5,7 @@
 #include "Actor/Ground.h"
 #include "Actor/Box.h"
 #include "Actor/Player.h"
+#include "Actor/Block.h"
 
 #include "Engine/Timer.h"
 
@@ -74,6 +75,16 @@ GameLevel::GameLevel()
 			actors.PushBack(ground);
 			map.PushBack(ground);
 		}
+		else if (mapChar == 'B')
+		{
+			Ground* ground = new Ground(Vec2(xPos, yPos));
+			actors.PushBack(ground);
+			map.PushBack(ground);
+
+			Block* block = new Block(Vec2(xPos, yPos));
+			actors.PushBack(block);
+			blocks.PushBack(block);
+		}
 		else if (mapChar == '#') // Box
 		{
 			Ground* ground = new Ground(Vec2(xPos, yPos));
@@ -105,6 +116,7 @@ void GameLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
+	// TODO: 승/패
 	// 게임 클리어 = 게임 종료
 	if (isGameClear)
 	{
@@ -139,7 +151,15 @@ void GameLevel::Render() // Engine-Level-Render 사용 X
 		}
 
 		bool shouldRender = true;
-		for (auto* box : boxes)
+		for (auto& block : blocks)
+		{
+			if (actor->Pos() == block->Pos())
+			{
+				shouldRender = false;
+				break;
+			}
+		}
+		for (auto& box : boxes)
 		{
 			if (actor->Pos() == box->Pos())
 			{
@@ -153,8 +173,12 @@ void GameLevel::Render() // Engine-Level-Render 사용 X
 			actor->Render();
 		}
 	}
+	// Block
+	for (auto& block : blocks)
+	{
+		block->Render();
+	}
 
-	// TODO: Box vs Player
 	// Box
 	for (auto* box : boxes)
 	{
@@ -193,7 +217,7 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 		Vec2 newPosition = searchedBox->Pos() + Vec2(directionX, directionY);
 
 		// 박스 이동 가능?
-		for (auto* box : boxes)
+		for (auto* box : boxes) // 다른 박스에 막힘
 		{
 			if (box == searchedBox)
 			{
@@ -205,7 +229,14 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 				return false;
 			}
 		}
-		for (auto* actor : map)
+		for (auto& block : blocks) // 블럭에 막힘
+		{
+			if (block->Pos() == newPosition)
+			{
+				return false;
+			}
+		}
+		for (auto* actor : map) // 벽에 막힘
 		{
 			if (actor->Pos() == newPosition)
 			{
@@ -234,24 +265,25 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 			break;
 		}
 	}
-	// TODO: 필요 시 활성화
-	//if (searchedActor->As<Wall>())
-	//{
-	//	return false;
-	//}
-	
 	// 예외처리
 	if (!searchedActor)
 	{
 		return false;
 	}
-
-	if (searchedActor->As<Ground>())
+	if (searchedActor->As<Wall>())
 	{
-		return true;
+		return false;
+	}
+	// Block = 이동 불가
+	for (auto& block : blocks)
+	{
+		if (block->Pos() == pos)
+		{
+			return false;
+		}
 	}
 
-	return false;
+	return true;
 }
 
 //bool GameLevel::CheckGameClear()

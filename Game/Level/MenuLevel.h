@@ -27,7 +27,7 @@ struct MenuItem
 
 class MenuLevel : public Level
 {
-	RTTI_DECLARATIONS(MenuLevel, Level)
+	GENERATED_BODY(MenuLevel, Level)
 
 public:
 	MenuLevel();

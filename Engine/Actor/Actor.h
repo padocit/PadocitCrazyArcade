@@ -7,7 +7,7 @@
 class ENGINE_API Actor : public RTTI
 {
 	// RTTI ¼±¾ð
-	RTTI_DECLARATIONS(Actor, RTTI)
+	GENERATED_BODY(Actor, RTTI)
 	friend class Level;
 
 public:

@@ -5,7 +5,7 @@
 class ENGINE_API RenderableActor : public Actor
 {
 	// RTTI
-	RTTI_DECLARATIONS(RenderableActor, Actor)
+	GENERATED_BODY(RenderableActor, Actor)
 
 public:
 	RenderableActor(const char* image = "");

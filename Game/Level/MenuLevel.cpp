@@ -45,7 +45,7 @@ void MenuLevel::Render()
 	Engine::Get().SetCursorPos(0, 0);
 	
 	SetColor(unselectedColor);
-	Log("Sokoban Game\n\n");
+	Log("Crazy Arcade\n\n");
 
 	for (int ix = 0; ix < length; ++ix)
 	{
