@@ -14,7 +14,31 @@ public:
 
 	virtual void Update(float deltaTime) override;
 
+	// setter
+	inline void AddCountBalloon() 
+	{ 
+		countBalloon = countBalloon + 1 <= maxCountBalloon ?
+			countBalloon + 1 : maxCountBalloon;
+	}
+	inline void SubCountBalloon() 
+	{ 
+		countBalloon = countBalloon - 1 >= 0 ?
+			countBalloon - 1 : 0;
+	}
+
+	// TODO: maxCountBalloon 증가 setter
+	inline void AddMaxCountBalloon() { ++maxCountBalloon; }
+
+
 private:
 	// 게임 레벨 참조 (CanPlayerMove() 사용)
 	GameLevel* refLevel = nullptr;
+
+	// balloon 생성 가능 개수 - 아이템으로 증가
+	int maxCountBalloon; 
+	int countBalloon;
+
+	// TODO: 내가 생성한 balloon 주소 저장? (Kill/Death 기록 등에 참조?)
+	// X 현재 balloon에서 player 참조하므로 없어도 될듯함
+	
 };

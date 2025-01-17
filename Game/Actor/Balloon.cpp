@@ -3,9 +3,10 @@
 #include "Game/Game.h"
 #include "Math/Vec2.h"
 
-Balloon::Balloon(const Vec2& pos, GameLevel* level)
+Balloon::Balloon(const Vec2& pos, GameLevel* level, Player* ownPlayer)
 	: RenderableActor("O"),
-	elapsedTime(0.0f), bombTime(2.0f), destroyTime(3.0f), refLevel(level)
+	elapsedTime(0.0f), bombTime(1.5f), destroyTime(2.5f), 
+	refLevel(level), ownPlayer(ownPlayer)
 {
 	this->pos = pos;
 	color = Color::Skyblue;

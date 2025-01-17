@@ -5,7 +5,7 @@
 #include "Actor/Balloon.h"
 
 Player::Player(const Vec2& pos, GameLevel* level)
-	: RenderableActor("P"), refLevel(level)
+	: RenderableActor("P"), refLevel(level), maxCountBalloon(1), countBalloon(0)
 {
 	this->pos = pos;
 	color = Color::Red;
@@ -25,8 +25,12 @@ void Player::Update(float deltaTime)
 	// 물풍선 생성
 	if (Engine::Get().GetKeyDown(VK_SPACE))
 	{
-		// GameLevel의 balloons에 추가
-		refLevel->AddBalloon(new Balloon(this->pos, refLevel));
+		if (countBalloon < maxCountBalloon) // 더 생성 가능한가
+		{
+			// GameLevel의 balloons에 추가
+			refLevel->AddBalloon(new Balloon(this->pos, refLevel, this));
+			AddCountBalloon();
+		}
 	}
 
 	// Move

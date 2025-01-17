@@ -14,13 +14,14 @@ enum class BalloonState
 	Bomb,
 };
 
+class Player;
 class GameLevel;
 class Balloon : public RenderableActor
 {
 	GENERATED_BODY(Balloon, RenderableActor)
 
 public:
-	Balloon(const Vec2& pos, GameLevel* level);
+	Balloon(const Vec2& pos, GameLevel* level, Player* ownPlayer);
 
 	virtual void Update(float deltaTime) override; // TODO: 필요?
 	virtual void Render() override;
@@ -33,6 +34,7 @@ public:
 	// Getter
 	inline BalloonState GetBalloonState() const { return balloonState; }
 	inline int BombOffset() const { return bombOffset; }
+	inline Player& OwnPlayer() const { return *ownPlayer; }
 
 private:
 	BalloonState balloonState;
@@ -47,4 +49,7 @@ private:
 
 	// 게임 레벨 참조 (CanBalloonBomb() 사용)
 	GameLevel* refLevel = nullptr;
+
+	// 풍선 주인 플레이어
+	Player* ownPlayer = nullptr;
 };

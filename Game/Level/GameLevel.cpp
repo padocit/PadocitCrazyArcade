@@ -422,6 +422,7 @@ void GameLevel::DestroyFromBalloons(Balloon* balloon)
 		if (balloons[i] == balloon)
 		{
 			balloons.Erase(i);
+			balloon->OwnPlayer().SubCountBalloon();
 			balloon->Destroy();
 		}
 	}
