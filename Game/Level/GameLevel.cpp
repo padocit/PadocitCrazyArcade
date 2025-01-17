@@ -137,10 +137,10 @@ GameLevel::GameLevel()
 	// 플레이어 랜덤 스폰
 	for (int i = 0; i < playerCount; ++i)
 	{
-		int idx = Random(0, int(spawnPoints.Size()));
+		int idx = Random(0, int(spawnPoints.Size() - 1));
 		Vec2 spawnPoint = spawnPoints[idx];
 		spawnPoints.Erase(idx); // 겹침 방지
-		players.PushBack(new Player(spawnPoint, this, playerColors[i]));
+		players.PushBack(new Player(spawnPoint, this, playerColors[i], i));
 		actors.PushBack(players[i]);
 	}
 	delete[] buffer;

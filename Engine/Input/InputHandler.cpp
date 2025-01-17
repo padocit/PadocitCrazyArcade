@@ -1,7 +1,10 @@
 #include "PreCompiledHeader.h"
 #include "InputHandler.h"
+#include "ICommand.h"
+#include "Engine/Engine.h"
 
-void InputHandler::HandleInput()
+ICommand* InputHandler::HandleInput()
 {
-	
+
+	return nullptr;
 }

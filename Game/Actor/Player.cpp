@@ -3,11 +3,15 @@
 #include "Game/Game.h"
 #include "Level/GameLevel.h"
 #include "Actor/Balloon.h"
+#include "Input/InputHandler.h"
+#include "Input/InputHandlerLocal1P.h"
+#include "Input/ICommand.h"
 
-Player::Player(const Vec2& pos, GameLevel* level, Color color)
+Player::Player(const Vec2& pos, GameLevel* level, Color color, int id)
 	: RenderableActor("P"), refLevel(level), 
 	maxCountBalloon(1), countBalloon(0),
-	elapsedTimeLocked(0.0f), maxDeadTimeLocked(3.0f)
+	elapsedTimeLocked(0.0f), maxDeadTimeLocked(3.0f),
+	id(id)
 {
 	this->pos = pos;
 	this->color = color;
@@ -15,6 +19,15 @@ Player::Player(const Vec2& pos, GameLevel* level, Color color)
 	
 	oneDeadTimeLocked = maxDeadTimeLocked / 3.0f;
 	twoDeadTimeLocked = 2.0f * oneDeadTimeLocked;
+
+	if (id == 0) // 1p
+	{
+		playerController = new InputHandlerLocal1P();
+	}
+	else if (id == 1) // 2p
+	{
+	}
+
 }
 
 void Player::Update(float deltaTime)
@@ -30,46 +43,13 @@ void Player::Update(float deltaTime)
 
 	if (playerState == PlayerState::Normal)
 	{
-		// 물풍선 생성
-		if (Engine::Get().GetKeyDown(VK_SPACE))
+		// Command: Move, PutBalloon, UseItem
+		if (playerController)
 		{
-			if (countBalloon < maxCountBalloon) // 더 생성 가능한가
+			ICommand* command = playerController->HandleInput();
+			if (command)
 			{
-				// GameLevel의 balloons에 추가
-				refLevel->AddBalloon(new Balloon(this->pos, refLevel, this));
-				AddCountBalloon();
-			}
-		}
-
-		// Move
-		// 이동 가능 확인 - GameLevel::CanPlayerMove
-		if (Engine::Get().GetKeyDown(VK_LEFT))
-		{
-			if (refLevel->CanPlayerMove(Vec2(pos.x - 1, pos.y)))
-			{
-				this->pos.x -= 1;
-			}
-			// pos.x = pos.x < 0 ? 0 : pos.x; // 필요없음
-		}
-		if (Engine::Get().GetKeyDown(VK_RIGHT))
-		{
-			if (refLevel->CanPlayerMove(Vec2(pos.x + 1, pos.y)))
-			{
-				this->pos.x += 1;
-			}
-		}
-		if (Engine::Get().GetKeyDown(VK_UP))
-		{
-			if (refLevel->CanPlayerMove(Vec2(pos.x, pos.y - 1)))
-			{
-				this->pos.y -= 1;
-			}
-		}
-		if (Engine::Get().GetKeyDown(VK_DOWN))
-		{
-			if (refLevel->CanPlayerMove(Vec2(pos.x, pos.y + 1)))
-			{
-				this->pos.y += 1;
+				command->execute(*this);
 			}
 		}
 	}
@@ -94,6 +74,56 @@ void Player::Update(float deltaTime)
 			return;
 		}
 	}
+}
+
+void Player::MoveLeft()
+{
+	if (refLevel->CanPlayerMove(Vec2(pos.x - 1, pos.y)))
+	{
+		this->pos.x -= 1;
+	}
+	// pos.x = pos.x < 0 ? 0 : pos.x; // 필요없음
+}
+
+void Player::MoveRight()
+{
+	if (refLevel->CanPlayerMove(Vec2(pos.x + 1, pos.y)))
+	{
+		this->pos.x += 1;
+	}
+}
+
+void Player::MoveUp()
+{
+	if (refLevel->CanPlayerMove(Vec2(pos.x, pos.y - 1)))
+	{
+		this->pos.y -= 1;
+	}
+}
+
+void Player::MoveDown()
+{
+	if (refLevel->CanPlayerMove(Vec2(pos.x, pos.y + 1)))
+	{
+		this->pos.y += 1;
+	}
+}
+
+
+void Player::PutBalloon()
+{
+	// 물풍선 생성
+	if (countBalloon < maxCountBalloon) // 더 생성 가능한가
+	{
+		// GameLevel의 balloons에 추가
+		refLevel->AddBalloon(new Balloon(this->pos, refLevel, this));
+		AddCountBalloon();
+	}
+
+}
+
+void Player::UseItem()
+{
 }
 
 void Player::SetStateLocked()

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "PreCompiledHeader/PreCompiledHeader.h"
 
 #if ENGINE_BUILD_DLL

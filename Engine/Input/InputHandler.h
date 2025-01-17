@@ -4,12 +4,9 @@ class ICommand;
 class InputHandler
 {
 public:
-	void HandleInput();
+	virtual ~InputHandler() {}
+
+	virtual ICommand* HandleInput() = 0;
 
 private:
-	ICommand* left;
-	ICommand* right;
-	ICommand* up;
-	ICommand* down;
-	ICommand* space;
 };

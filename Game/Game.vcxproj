@@ -187,6 +187,12 @@
     <ClCompile Include="Actor\Target.cpp" />
     <ClCompile Include="Actor\Wall.cpp" />
     <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Input\InputHandlerLocal1P.cpp" />
+    <ClCompile Include="Input\MoveDownCommand.cpp" />
+    <ClCompile Include="Input\MoveLeftCommand.cpp" />
+    <ClCompile Include="Input\MoveRightCommand.cpp" />
+    <ClCompile Include="Input\MoveUpCommand.cpp" />
+    <ClCompile Include="Input\PutBalloonCommand.cpp" />
     <ClCompile Include="Level\GameLevel.cpp" />
     <ClCompile Include="Level\MenuLevel.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -200,7 +206,12 @@
     <ClInclude Include="Actor\Target.h" />
     <ClInclude Include="Actor\Wall.h" />
     <ClInclude Include="Game\Game.h" />
-    <ClInclude Include="Input\MoveCommand.h" />
+    <ClInclude Include="Input\InputHandlerLocal1P.h" />
+    <ClInclude Include="Input\MoveDownCommand.h" />
+    <ClInclude Include="Input\MoveLeftCommand.h" />
+    <ClInclude Include="Input\MoveRightCommand.h" />
+    <ClInclude Include="Input\MoveUpCommand.h" />
+    <ClInclude Include="Input\PutBalloonCommand.h" />
     <ClInclude Include="Level\GameLevel.h" />
     <ClInclude Include="Level\MenuLevel.h" />
   </ItemGroup>

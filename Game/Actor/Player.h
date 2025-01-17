@@ -9,6 +9,7 @@ enum class PlayerState
 	Locked,
 };
 
+class InputHandler;
 class GameLevel;
 class Balloon;
 class Player : public RenderableActor
@@ -16,9 +17,16 @@ class Player : public RenderableActor
 	GENERATED_BODY(Player, RenderableActor)
 
 public:
-	Player(const Vec2& pos, GameLevel* level, Color color);
+	Player(const Vec2& pos, GameLevel* level, Color color, int id = 0);
 
 	virtual void Update(float deltaTime) override;
+
+	void MoveLeft();
+	void MoveRight();
+	void MoveUp();
+	void MoveDown();
+	void PutBalloon();
+	void UseItem();
 
 	// setter
 	inline void AddCountBalloon() 
@@ -39,6 +47,9 @@ public:
 
 
 private:
+	int id;
+	InputHandler* playerController = nullptr;
+
 	// 게임 레벨 참조 (CanPlayerMove() 사용)
 	GameLevel* refLevel = nullptr;
 
