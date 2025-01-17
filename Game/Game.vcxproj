@@ -200,6 +200,7 @@
     <ClInclude Include="Actor\Target.h" />
     <ClInclude Include="Actor\Wall.h" />
     <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Input\MoveCommand.h" />
     <ClInclude Include="Level\GameLevel.h" />
     <ClInclude Include="Level\MenuLevel.h" />
   </ItemGroup>

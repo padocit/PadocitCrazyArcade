@@ -191,6 +191,7 @@ xcopy $(OutDir)\*.lib $(SolutionDir)\Lib\ /e /y</Command>
     <ClCompile Include="Actor\RenderableActor.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
+    <ClCompile Include="Input\InputHandler.cpp" />
     <ClCompile Include="Level\Level.cpp" />
     <ClCompile Include="Math\Vec2.cpp" />
     <ClCompile Include="PreCompiledHeader\PreCompiledHeader.cpp">
@@ -208,6 +209,8 @@ xcopy $(OutDir)\*.lib $(SolutionDir)\Lib\ /e /y</Command>
     <ClInclude Include="Core.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\Timer.h" />
+    <ClInclude Include="Input\ICommand.h" />
+    <ClInclude Include="Input\InputHandler.h" />
     <ClInclude Include="Level\Level.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="PreCompiledHeader\PreCompiledHeader.h" />

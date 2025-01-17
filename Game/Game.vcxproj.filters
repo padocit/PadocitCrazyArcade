@@ -80,5 +80,8 @@
     <ClInclude Include="Actor\Balloon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Input\MoveCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
