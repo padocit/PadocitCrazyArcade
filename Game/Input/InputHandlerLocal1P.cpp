@@ -1,5 +1,5 @@
 #include "InputHandlerLocal1P.h"
-#include "Input/InputHandler.h"
+
 #include "Input/MoveLeftCommand.h"
 #include "Input/MoveRightCommand.h"
 #include "Input/MoveUpCommand.h"
@@ -11,12 +11,12 @@
 InputHandlerLocal1P::InputHandlerLocal1P()
 	: InputHandler()
 {
-	d      = new MoveLeftCommand();
-	g      = new MoveRightCommand();
-	r      = new MoveUpCommand();
-	f      = new MoveDownCommand();
-	lShift = new PutBalloonCommand();
-	// TODO: lctrl = item
+	d = new MoveLeftCommand();
+	g = new MoveRightCommand();
+	r = new MoveUpCommand();
+	f = new MoveDownCommand();
+	s = new PutBalloonCommand();
+	// TODO: a = item
 }
 
 InputHandlerLocal1P::~InputHandlerLocal1P()
@@ -25,7 +25,7 @@ InputHandlerLocal1P::~InputHandlerLocal1P()
 	delete g;     
 	delete r;     
 	delete f;     
-	delete lShift;
+	delete s;
 }
 
 ICommand* InputHandlerLocal1P::HandleInput()
@@ -49,9 +49,9 @@ ICommand* InputHandlerLocal1P::HandleInput()
 	}
 
 	// Put Balloon
-	if (Engine::Get().GetKeyDown(VK_LSHIFT))
+	if (Engine::Get().GetKeyDown(int('S')))
 	{
-		return lShift;
+		return s;
 	}
 
 	return nullptr;

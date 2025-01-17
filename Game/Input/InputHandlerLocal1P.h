@@ -15,6 +15,6 @@ private:
 	ICommand* g = nullptr;
 	ICommand* r = nullptr;
 	ICommand* f = nullptr;
-	ICommand* lShift = nullptr;
-	ICommand* lCtrl = nullptr;
+	ICommand* s = nullptr;
+	ICommand* a = nullptr;
 };

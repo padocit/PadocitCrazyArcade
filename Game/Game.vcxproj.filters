@@ -66,6 +66,9 @@
     <ClCompile Include="Input\PutBalloonCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Input\InputHandlerLocal2P.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Level\GameLevel.h">
@@ -114,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input\PutBalloonCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputHandlerLocal2P.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

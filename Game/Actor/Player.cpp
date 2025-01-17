@@ -3,8 +3,8 @@
 #include "Game/Game.h"
 #include "Level/GameLevel.h"
 #include "Actor/Balloon.h"
-#include "Input/InputHandler.h"
 #include "Input/InputHandlerLocal1P.h"
+#include "Input/InputHandlerLocal2P.h"
 #include "Input/ICommand.h"
 
 Player::Player(const Vec2& pos, GameLevel* level, Color color, int id)
@@ -26,6 +26,7 @@ Player::Player(const Vec2& pos, GameLevel* level, Color color, int id)
 	}
 	else if (id == 1) // 2p
 	{
+		playerController = new InputHandlerLocal2P();
 	}
 
 }
