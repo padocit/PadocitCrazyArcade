@@ -16,7 +16,7 @@ void Player::Update(float deltaTime)
 	Super::Update(deltaTime);
 
 	// ESC
-	if (Engine::Get().GetKey(VK_ESCAPE))
+	if (Engine::Get().GetKeyDown(VK_ESCAPE))
 	{
 		//Engine::Get().QuitGame();
 		Game::Get().ToggleMenu();
@@ -31,7 +31,7 @@ void Player::Update(float deltaTime)
 
 	// Move
 	// 이동 가능 확인 - GameLevel::CanPlayerMove
-	if (Engine::Get().GetKeyDown(VK_LEFT))
+	if (Engine::Get().GetKey(VK_LEFT))
 	{
 		if (refLevel->CanPlayerMove(Vec2(pos.x - 1, pos.y)))
 		{
@@ -39,21 +39,21 @@ void Player::Update(float deltaTime)
 		}
 		// pos.x = pos.x < 0 ? 0 : pos.x; // 필요없음
 	}
-	if (Engine::Get().GetKeyDown(VK_RIGHT))
+	if (Engine::Get().GetKey(VK_RIGHT))
 	{
 		if (refLevel->CanPlayerMove(Vec2(pos.x + 1, pos.y)))
 		{
 			this->pos.x += 1;
 		}
 	}
-	if (Engine::Get().GetKeyDown(VK_UP))
+	if (Engine::Get().GetKey(VK_UP))
 	{
 		if (refLevel->CanPlayerMove(Vec2(pos.x, pos.y - 1)))
 		{
 			this->pos.y -= 1;
 		}
 	}
-	if (Engine::Get().GetKeyDown(VK_DOWN))
+	if (Engine::Get().GetKey(VK_DOWN))
 	{
 		if (refLevel->CanPlayerMove(Vec2(pos.x, pos.y + 1)))
 		{
