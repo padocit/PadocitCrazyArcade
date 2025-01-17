@@ -20,6 +20,7 @@ public:
 	Player(const Vec2& pos, GameLevel* level, Color color, int id = 0);
 
 	virtual void Update(float deltaTime) override;
+	virtual void Render() override;
 
 	void MoveLeft();
 	void MoveRight();
@@ -49,6 +50,8 @@ public:
 private:
 	int id;
 	InputHandler* playerController = nullptr;
+
+	Vec2 prevPos;
 
 	// 게임 레벨 참조 (CanPlayerMove() 사용)
 	GameLevel* refLevel = nullptr;

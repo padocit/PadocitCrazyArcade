@@ -16,6 +16,8 @@ Player::Player(const Vec2& pos, GameLevel* level, Color color, int id)
 	this->pos = pos;
 	this->color = color;
 	playerState = PlayerState::Normal;
+
+	prevPos = Vec2(0, 0);
 	
 	oneDeadTimeLocked = maxDeadTimeLocked / 3.0f;
 	twoDeadTimeLocked = 2.0f * oneDeadTimeLocked;
@@ -77,10 +79,22 @@ void Player::Update(float deltaTime)
 	}
 }
 
+void Player::Render()
+{
+	// TODO: 리팩토링.. (hotfix) 이전 위치 덮어버리기
+	Engine::Get().SetCursorPos(prevPos);
+	SetColor(Color::Gray);
+	Log("%c", '.');
+	SetColor(color);
+
+	Super::Render();
+}
+
 void Player::MoveLeft()
 {
 	if (refLevel->CanPlayerMove(Vec2(pos.x - 1, pos.y)))
 	{
+		prevPos = pos;
 		this->pos.x -= 1;
 	}
 	// pos.x = pos.x < 0 ? 0 : pos.x; // 필요없음
@@ -90,6 +104,7 @@ void Player::MoveRight()
 {
 	if (refLevel->CanPlayerMove(Vec2(pos.x + 1, pos.y)))
 	{
+		prevPos = pos;
 		this->pos.x += 1;
 	}
 }
@@ -98,6 +113,7 @@ void Player::MoveUp()
 {
 	if (refLevel->CanPlayerMove(Vec2(pos.x, pos.y - 1)))
 	{
+		prevPos = pos;
 		this->pos.y -= 1;
 	}
 }
@@ -106,6 +122,7 @@ void Player::MoveDown()
 {
 	if (refLevel->CanPlayerMove(Vec2(pos.x, pos.y + 1)))
 	{
+		prevPos = pos;
 		this->pos.y += 1;
 	}
 }

@@ -33,6 +33,9 @@ enum class Color
 	Magenta = Red + Blue,
 	White = Red + Green + Blue,
 	Gray = FOREGROUND_INTENSITY,
+	LightRed = Red + Gray,
+	LightBlue = Blue + Gray,
+	LightGreen = Green + Gray,
 };
 
 inline void SetColor(Color color)

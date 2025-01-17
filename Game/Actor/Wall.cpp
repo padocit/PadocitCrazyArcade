@@ -4,5 +4,5 @@ Wall::Wall(const Vec2& pos)
 	: RenderableActor("I")
 {
 	this->pos = pos;
-	this->color = Color::Green;
+	this->color = Color::Gray;
 }

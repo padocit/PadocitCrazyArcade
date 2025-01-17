@@ -117,10 +117,10 @@ GameLevel::GameLevel()
 		switch (i)
 		{
 		case 0:
-			playerColors.PushBack(Color::Red);
+			playerColors.PushBack(Color::LightRed);
 			break;
 		case 1:
-			playerColors.PushBack(Color::Blue);
+			playerColors.PushBack(Color::LightBlue);
 			break;
 		case 2:
 			playerColors.PushBack(Color::Green);
@@ -264,17 +264,18 @@ void GameLevel::Render()
 		box->Render();
 	}
 
+	// Player
+	for (auto* player : players)
+	{
+		player->Render();
+	}
+
 	// Balloon
 	for (auto* balloon : balloons)
 	{
 		balloon->Render();
 	}
 
-	// Player
-	for (auto* player : players)
-	{
-		player->Render();
-	}
 }
 
 bool GameLevel::CanPlayerMove(const Vec2& pos)
