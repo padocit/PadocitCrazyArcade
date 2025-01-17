@@ -4,7 +4,7 @@
 class Item : public RenderableActor
 {
 public:
-	Item(const Vec2& pos);
+	Item(const Vec2& pos, const char* image, Color color);
 
 
 };

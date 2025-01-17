@@ -127,7 +127,7 @@ GameLevel::GameLevel()
 			playerColors.PushBack(Color::Green);
 			break;
 		case 3:
-			playerColors.PushBack(Color::Magenta);
+			playerColors.PushBack(Color::Yellow);
 			break;
 		default:
 			playerColors.PushBack(Color::White);

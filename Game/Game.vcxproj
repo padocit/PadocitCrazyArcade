@@ -194,6 +194,7 @@
     <ClCompile Include="Input\MoveRightCommand.cpp" />
     <ClCompile Include="Input\MoveUpCommand.cpp" />
     <ClCompile Include="Input\PutBubbleCommand.cpp" />
+    <ClCompile Include="Item\BubbleItem.cpp" />
     <ClCompile Include="Item\Item.cpp" />
     <ClCompile Include="Level\GameLevel.cpp" />
     <ClCompile Include="Level\MenuLevel.cpp" />
@@ -215,6 +216,8 @@
     <ClInclude Include="Input\MoveRightCommand.h" />
     <ClInclude Include="Input\MoveUpCommand.h" />
     <ClInclude Include="Input\PutBubbleCommand.h" />
+    <ClInclude Include="Item\BubbleItem.h" />
+    <ClInclude Include="Item\FluidItem.h" />
     <ClInclude Include="Item\Item.h" />
     <ClInclude Include="Level\GameLevel.h" />
     <ClInclude Include="Level\MenuLevel.h" />
