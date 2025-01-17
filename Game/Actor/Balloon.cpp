@@ -5,7 +5,7 @@
 
 Balloon::Balloon(const Vec2& pos, GameLevel* level)
 	: RenderableActor("O"),
-	elapsedTime(0.0f), bombTime(2.0f), refLevel(level)
+	elapsedTime(0.0f), bombTime(2.0f), destroyTime(3.0f), refLevel(level)
 {
 	this->pos = pos;
 	color = Color::Skyblue;
@@ -21,6 +21,10 @@ void Balloon::Update(float deltaTime)
 	if (elapsedTime >= bombTime)
 	{
 		SetStateBomb();
+	}
+	if (elapsedTime >= destroyTime)
+	{
+		refLevel->DestroyFromBalloons(this);
 	}
 }
 
@@ -58,38 +62,37 @@ void Balloon::Render()
 
 bool Balloon::Intersect(const RenderableActor& other)
 {
-	// bomb 상태라면 범위(offset) 내 block(box) destroy
-
-	// TODO: 세로 = 1칸 가정중 (필요 시 height 추가)
+	bool horizontalIntersected = false;
+	bool verticalIntersected = false;
 	
-	// other
+	// other 1x1 가정 중
 	Vec2 otherPos = other.Pos();
-	int otherMinX = otherPos.x;
-	int otherMaxX = otherPos.x + other.Width();
-	int otherY = otherPos.y; 
+	int otherX = otherPos.x;
+	int otherY = otherPos.y;
 
-	/* 가로줄 */
 	// this 
 	int minX = pos.x - bombOffset;
-	int maxX = pos.x + bombOffset;
-
-	if (otherMinX > maxX || otherMaxX < minX)
-	{
-		return false;
-	}
-
-	/* 세로줄 */
-	// this 
+	int maxX = pos.x + bombOffset;	
 	int minY = pos.y - bombOffset;
 	int maxY = pos.y + bombOffset;
 
-	if (otherY > maxY || otherY < minY)
+
+	/* 가로줄 1x3 */
+	if ((otherX <= maxX && otherX >= minX) &&
+		otherY == pos.y)
 	{
-		return false;
+		return true;
+	}
+
+	/* 세로줄 3x1 */
+	if ((otherY <= maxY && otherY >= minY) &&
+		otherPos.x == pos.x)
+	{
+		return true;
 	}
 
 	// 범위 밖 아니라면 충돌!
-	return true;
+	return false;
 }
 
 void Balloon::SetStateBomb()

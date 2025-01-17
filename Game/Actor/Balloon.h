@@ -40,6 +40,7 @@ private:
 	// Timer
 	float elapsedTime;
 	float bombTime;
+	float destroyTime;
 
 	// 물줄기 칸 수
 	int bombOffset = 1; // TODO: 아이템 먹으면 증가

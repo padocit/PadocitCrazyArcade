@@ -398,6 +398,18 @@ void GameLevel::ProcessCollisionBalloonAndBlock()
 	}
 }
 
+void GameLevel::DestroyFromBalloons(Balloon* balloon)
+{
+	for (int i = 0; i < balloons.Size(); ++i)
+	{
+		if (balloons[i] == balloon)
+		{
+			balloons.Erase(i);
+			balloon->Destroy();
+		}
+	}
+}
+
 //bool GameLevel::CheckGameClear()
 //{
 //	int currentScore = 0;

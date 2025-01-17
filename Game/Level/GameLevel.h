@@ -31,6 +31,9 @@ public:
 	// 물풍선-block(box) 충돌처리
 	void ProcessCollisionBalloonAndBlock();
 
+	// 물풍선 객체에서 호출하는 삭제 로직
+	void DestroyFromBalloons(Balloon* balloon);
+
 private:
 
 	// TODD: 게임 결과
