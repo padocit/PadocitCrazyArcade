@@ -1,5 +1,6 @@
 #include "GameLevel.h"
 #include "Engine/Engine.h"
+#include "Game/Game.h"
 
 #include "Actor/Wall.h"
 #include "Actor/Ground.h"
@@ -151,6 +152,13 @@ GameLevel::GameLevel()
 void GameLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
+
+	// ESC
+	if (Engine::Get().GetKeyDown(VK_ESCAPE))
+	{
+		//Engine::Get().QuitGame();
+		Game::Get().ToggleMenu();
+	}
 
 	// 물풍선 충돌 처리
 	ProcessCollisionBalloonAndBlock();

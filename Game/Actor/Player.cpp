@@ -35,13 +35,6 @@ void Player::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	// ESC
-	if (Engine::Get().GetKeyDown(VK_ESCAPE))
-	{
-		//Engine::Get().QuitGame();
-		Game::Get().ToggleMenu();
-	}
-
 	if (playerState == PlayerState::Normal)
 	{
 		// Command: Move, PutBalloon, UseItem
