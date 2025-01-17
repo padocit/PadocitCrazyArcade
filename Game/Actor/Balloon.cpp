@@ -62,10 +62,7 @@ void Balloon::Render()
 
 bool Balloon::Intersect(const RenderableActor& other)
 {
-	bool horizontalIntersected = false;
-	bool verticalIntersected = false;
-	
-	// other 1x1 가정 중
+	// other = 1x1 가정 중
 	Vec2 otherPos = other.Pos();
 	int otherX = otherPos.x;
 	int otherY = otherPos.y;
@@ -91,7 +88,7 @@ bool Balloon::Intersect(const RenderableActor& other)
 		return true;
 	}
 
-	// 범위 밖 아니라면 충돌!
+	// 범위 밖이라면 충돌X
 	return false;
 }
 
