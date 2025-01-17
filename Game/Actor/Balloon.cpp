@@ -9,7 +9,7 @@ Balloon::Balloon(const Vec2& pos, GameLevel* level, Player* ownPlayer)
 	refLevel(level), ownPlayer(ownPlayer)
 {
 	this->pos = pos;
-	color = Color::Skyblue;
+	color = Color::Cyan;
 	balloonState = BalloonState::Normal;
 }
 

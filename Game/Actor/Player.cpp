@@ -4,13 +4,13 @@
 #include "Level/GameLevel.h"
 #include "Actor/Balloon.h"
 
-Player::Player(const Vec2& pos, GameLevel* level)
+Player::Player(const Vec2& pos, GameLevel* level, Color color)
 	: RenderableActor("P"), refLevel(level), 
 	maxCountBalloon(1), countBalloon(0),
 	elapsedTimeLocked(0.0f), maxDeadTimeLocked(3.0f)
 {
 	this->pos = pos;
-	color = Color::Red;
+	this->color = color;
 	playerState = PlayerState::Normal;
 	
 	oneDeadTimeLocked = maxDeadTimeLocked / 3.0f;

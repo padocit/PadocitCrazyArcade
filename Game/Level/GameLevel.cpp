@@ -11,6 +11,7 @@
 #include "Engine/Timer.h"
 
 GameLevel::GameLevel()
+	: playerCount(2)
 {
 	/* Hide cursor */
 	Engine::Get().SetCursorType(CursorType::NoCursor);
@@ -110,12 +111,38 @@ GameLevel::GameLevel()
 		}
 		++xPos;
 	}
-	// 플레이어 랜덤 스폰
-	int idx = Random(0, int(spawnPoints.Size()));
-	Vec2 spawnPoint = spawnPoints[idx];
-	player = new Player(spawnPoint, this);
-	actors.PushBack(player);
+	// 플레이어 색상 결정
+	for (int i = 0; i < playerCount; ++i)
+	{
+		switch (i)
+		{
+		case 0:
+			playerColors.PushBack(Color::Red);
+			break;
+		case 1:
+			playerColors.PushBack(Color::Blue);
+			break;
+		case 2:
+			playerColors.PushBack(Color::Green);
+			break;
+		case 3:
+			playerColors.PushBack(Color::Magenta);
+			break;
+		default:
+			playerColors.PushBack(Color::White);
+			break;
+		}
+	}
 
+	// 플레이어 랜덤 스폰
+	for (int i = 0; i < playerCount; ++i)
+	{
+		int idx = Random(0, int(spawnPoints.Size()));
+		Vec2 spawnPoint = spawnPoints[idx];
+		spawnPoints.Erase(idx); // 겹침 방지
+		players.PushBack(new Player(spawnPoint, this, playerColors[i]));
+		actors.PushBack(players[i]);
+	}
 	delete[] buffer;
 
 	fclose(file);
@@ -160,9 +187,17 @@ void GameLevel::Render()
 	// Map
 	for (auto* actor : map)
 	{
-		if (player != nullptr && actor->Pos() == player->Pos())
+		if (players.Size() == 0)
 		{
 			continue;
+		}
+
+		for (auto* player : players)
+		{
+			if (actor->Pos() == player->Pos())
+			{
+				continue;
+			}
 		}
 
 		bool shouldRender = true;
@@ -235,7 +270,7 @@ void GameLevel::Render()
 	}
 
 	// Player
-	if (player)
+	for (auto* player : players)
 	{
 		player->Render();
 	}
@@ -263,50 +298,53 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 	// 박스 밀기
 	if (searchedBox)
 	{
-		if (!player)
+		if (players.Size() == 0)
 		{
 			return false;
 		}
 
-		int directionX = pos.x - player->Pos().x;
-		int directionY = pos.y - player->Pos().y;
-
-		Vec2 newPosition = searchedBox->Pos() + Vec2(directionX, directionY);
-
-		// 박스 이동 가능?
-		for (auto* box : boxes) // 다른 박스에 막힘
+		for (auto* player : players)
 		{
-			if (box == searchedBox)
-			{
-				continue;
-			}
+			int directionX = pos.x - player->Pos().x;
+			int directionY = pos.y - player->Pos().y;
 
-			if (box->Pos() == newPosition)
+			Vec2 newPosition = searchedBox->Pos() + Vec2(directionX, directionY);
+
+			// 박스 이동 가능?
+			for (auto* box : boxes) // 다른 박스에 막힘
 			{
-				return false;
-			}
-		}
-		for (auto* block : blocks) // 블럭에 막힘
-		{
-			if (block->Pos() == newPosition)
-			{
-				return false;
-			}
-		}
-		for (auto* actor : map) // 벽에 막힘
-		{
-			if (actor->Pos() == newPosition)
-			{
-				// RTTI
-				if (actor->As<Wall>()) // 이동 불가
+				if (box == searchedBox)
+				{
+					continue;
+				}
+
+				if (box->Pos() == newPosition)
 				{
 					return false;
 				}
-				if (actor->As<Ground>()) // 이동 가능
+			}
+			for (auto* block : blocks) // 블럭에 막힘
+			{
+				if (block->Pos() == newPosition)
 				{
-					searchedBox->SetPos(newPosition);
-					//isGameClear = CheckGameClear();
-					return true;
+					return false;
+				}
+			}
+			for (auto* actor : map) // 벽에 막힘
+			{
+				if (actor->Pos() == newPosition)
+				{
+					// RTTI
+					if (actor->As<Wall>()) // 이동 불가
+					{
+						return false;
+					}
+					if (actor->As<Ground>()) // 이동 가능
+					{
+						searchedBox->SetPos(newPosition);
+						//isGameClear = CheckGameClear();
+						return true;
+					}
 				}
 			}
 		}
@@ -434,7 +472,7 @@ void GameLevel::ProcessCollisionBalloonAndBlock()
 void GameLevel::ProcessCollisionBalloonAndPlayer()
 {
 	// 예외처리
-	if (balloons.Size() == 0 || player == nullptr)
+	if (balloons.Size() == 0 || players.Size() == 0)
 	{
 		return;
 	}
@@ -446,14 +484,18 @@ void GameLevel::ProcessCollisionBalloonAndPlayer()
 		{
 			continue;
 		}
-		if (!player->IsActive())
-		{
-			continue;
-		}
 
-		if (balloon->Intersect(*player))
+		for (auto* player : players)
 		{
-			player->SetStateLocked();
+			if (!player->IsActive())
+			{
+				continue;
+			}
+
+			if (balloon->Intersect(*player))
+			{
+				player->SetStateLocked();
+			}
 		}
 	}
 }
@@ -471,11 +513,18 @@ void GameLevel::DestroyFromBalloons(Balloon* balloon)
 	}
 }
 
-void GameLevel::DestroyPlayer(Player* player)
+void GameLevel::DestroyPlayer(Player* destroyPlayer)
 {
 	// TODO: players 순회하여 찾아서 제거
-	this->player = nullptr;
-	player->Destroy();
+	for (int i = 0; i < players.Size(); ++i)
+	{
+		if (players[i] == destroyPlayer)
+		{
+			players.Erase(i);
+			destroyPlayer->Destroy();
+			return;
+		}
+	}
 }
 
 //bool GameLevel::CheckGameClear()

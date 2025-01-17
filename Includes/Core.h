@@ -29,9 +29,11 @@ enum class Color
 	Red = FOREGROUND_RED,
 	Green = FOREGROUND_GREEN,
 	Blue = FOREGROUND_BLUE,
-	Yellow = FOREGROUND_RED | FOREGROUND_GREEN,
-	Skyblue = FOREGROUND_GREEN | FOREGROUND_BLUE,
+	Yellow = Red + Green,
+	Cyan = Green + Blue,
+	Magenta = Red + Blue,
 	White = Red + Green + Blue,
+	Gray = FOREGROUND_INTENSITY,
 };
 
 inline void SetColor(Color color)

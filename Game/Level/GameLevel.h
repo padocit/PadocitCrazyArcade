@@ -38,7 +38,7 @@ public:
 	void DestroyFromBalloons(Balloon* balloon);
 
 	// 플레이어 제거
-	void DestroyPlayer(Player* player);
+	void DestroyPlayer(Player* destroyPlayer);
 
 private:
 
@@ -53,8 +53,10 @@ private:
 	Vector<Balloon*> balloons;
 
 	// TODO: 플레이어 여러명 관리 (container)
-	//Vector<Player*> players;
-	Player* player = nullptr;
+	Vector<Player*> players;
+	//Player* player = nullptr;
+	int playerCount;
+	Vector<Color> playerColors;
 
 	bool isGameClear = false;
 

@@ -16,7 +16,7 @@ class Player : public RenderableActor
 	GENERATED_BODY(Player, RenderableActor)
 
 public:
-	Player(const Vec2& pos, GameLevel* level);
+	Player(const Vec2& pos, GameLevel* level, Color color);
 
 	virtual void Update(float deltaTime) override;
 
