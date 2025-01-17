@@ -264,16 +264,16 @@ void GameLevel::Render()
 		box->Render();
 	}
 
-	// Player
-	for (auto* player : players)
-	{
-		player->Render();
-	}
-
 	// Balloon
 	for (auto* balloon : balloons)
 	{
 		balloon->Render();
+	}
+
+	// Player
+	for (auto* player : players)
+	{
+		player->Render();
 	}
 
 }
