@@ -12,7 +12,6 @@ enum class BalloonState
 {
 	Normal,
 	Bomb,
-	Lock
 };
 
 class GameLevel;
@@ -29,7 +28,6 @@ public:
 	virtual bool Intersect(const RenderableActor& other) override;
 
 	void SetStateBomb();
-	void SetStateLock();
 
 public:
 	// Getter

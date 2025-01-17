@@ -97,9 +97,3 @@ void Balloon::SetStateBomb()
 	balloonState = BalloonState::Bomb;
 	this->SetImage("+");
 }
-
-void Balloon::SetStateLock()
-{
-	balloonState = BalloonState::Lock;
-	this->SetImage("@");
-}
