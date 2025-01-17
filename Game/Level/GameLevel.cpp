@@ -395,6 +395,23 @@ void GameLevel::ProcessCollisionBalloonAndBlock()
 				block->Destroy();
 			}
 		}
+
+		for (int i = 0; i < boxes.Size(); ++i)
+		{
+			Box* box = boxes[i];
+
+			if (!box->IsActive())
+			{
+				continue;
+			}
+
+			// 충돌 처리
+			if (balloon->Intersect(*box))
+			{
+				boxes.Erase(i);
+				box->Destroy();
+			}
+		}
 	}
 }
 
