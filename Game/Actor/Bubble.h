@@ -8,7 +8,7 @@
 *  - 갇힘 @ 또는 ⓟ
 */
 
-enum class BalloonState
+enum class BubbleState
 {
 	Normal,
 	Bombed,
@@ -16,12 +16,12 @@ enum class BalloonState
 
 class Player;
 class GameLevel;
-class Balloon : public RenderableActor
+class Bubble : public RenderableActor
 {
-	GENERATED_BODY(Balloon, RenderableActor)
+	GENERATED_BODY(Bubble, RenderableActor)
 
 public:
-	Balloon(const Vec2& pos, GameLevel* level, Player* ownPlayer);
+	Bubble(const Vec2& pos, GameLevel* level, Player* ownPlayer);
 
 	virtual void Update(float deltaTime) override;
 	virtual void Render() override;
@@ -32,12 +32,12 @@ public:
 
 public:
 	// Getter
-	inline BalloonState GetBalloonState() const { return balloonState; }
+	inline BubbleState GetBubbleState() const { return bubbleState; }
 	inline int BombOffset() const { return bombOffset; }
 	inline Player& OwnPlayer() const { return *ownPlayer; }
 
 private:
-	BalloonState balloonState;
+	BubbleState bubbleState;
 
 	// Timer
 	float elapsedTime;
@@ -47,7 +47,7 @@ private:
 	// 물줄기 칸 수
 	int bombOffset = 1; // TODO: 아이템 먹으면 증가
 
-	// 게임 레벨 참조 (CanBalloonBomb() 사용)
+	// 게임 레벨 참조 (CanBubbleBomb() 사용)
 	GameLevel* refLevel = nullptr;
 
 	// 풍선 주인 플레이어

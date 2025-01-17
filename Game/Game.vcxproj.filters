@@ -45,7 +45,7 @@
     <ClCompile Include="Actor\Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\Balloon.cpp">
+    <ClCompile Include="Actor\Bubble.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input\MoveLeftCommand.cpp">
@@ -63,10 +63,13 @@
     <ClCompile Include="Input\InputHandlerLocal1P.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Input\PutBalloonCommand.cpp">
+    <ClCompile Include="Input\PutBubbleCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input\InputHandlerLocal2P.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Item\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +101,7 @@
     <ClInclude Include="Actor\Block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\Balloon.h">
+    <ClInclude Include="Actor\Bubble.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input\MoveLeftCommand.h">
@@ -116,10 +119,13 @@
     <ClInclude Include="Input\InputHandlerLocal1P.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Input\PutBalloonCommand.h">
+    <ClInclude Include="Input\PutBubbleCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input\InputHandlerLocal2P.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item\Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

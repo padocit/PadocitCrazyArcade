@@ -7,7 +7,7 @@
 #include "Actor/Box.h"
 #include "Actor/Player.h"
 #include "Actor/Block.h"
-#include "Actor/Balloon.h"
+#include "Actor/Bubble.h"
 
 #include "Engine/Timer.h"
 
@@ -161,8 +161,8 @@ void GameLevel::Update(float deltaTime)
 	}
 
 	// 물풍선 충돌 처리
-	ProcessCollisionBalloonAndBlock();
-	ProcessCollisionBalloonAndPlayer();
+	ProcessCollisionBubbleAndBlock();
+	ProcessCollisionBubbleAndPlayer();
 
 	// TODO: 승/패 출력
 	// 게임 클리어 = 종료
@@ -226,28 +226,28 @@ void GameLevel::Render()
 				break;
 			}
 		}
-		for (auto* balloon : balloons)
+		for (auto* bubble : bubbles)
 		{
-			// bomb 상태라면, balloon이 가진 offset 만큼 검사
-			if (balloon->GetBalloonState() == BalloonState::Bombed)
+			// bomb 상태라면, bubble이 가진 offset 만큼 검사
+			if (bubble->GetBubbleState() == BubbleState::Bombed)
 			{
 				// x
-				if (actor->Pos().x >= balloon->Pos().x - balloon->BombOffset()
-					&& actor->Pos().x <= balloon->Pos().x + balloon->BombOffset())
+				if (actor->Pos().x >= bubble->Pos().x - bubble->BombOffset()
+					&& actor->Pos().x <= bubble->Pos().x + bubble->BombOffset())
 				{
 					shouldRender = false;
 				}
 
 				// y
-				if (actor->Pos().y >= balloon->Pos().y - balloon->BombOffset()
-					&& actor->Pos().y <= balloon->Pos().y + balloon->BombOffset())
+				if (actor->Pos().y >= bubble->Pos().y - bubble->BombOffset()
+					&& actor->Pos().y <= bubble->Pos().y + bubble->BombOffset())
 				{
 					shouldRender = false;
 				}
 			}
 			else
 			{
-				if (actor->Pos() == balloon->Pos())
+				if (actor->Pos() == bubble->Pos())
 				{
 					shouldRender = false;
 					//break;
@@ -272,10 +272,10 @@ void GameLevel::Render()
 		box->Render();
 	}
 
-	// Balloon
-	for (auto* balloon : balloons)
+	// Bubble
+	for (auto* bubble : bubbles)
 	{
-		balloon->Render();
+		bubble->Render();
 	}
 
 	// Player
@@ -387,10 +387,10 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 			return false;
 		}
 	}
-	// Balloon = 이동 불가
-	for (auto* balloon : balloons)
+	// Bubble = 이동 불가
+	for (auto* bubble : bubbles)
 	{
-		if (balloon->Pos() == pos)
+		if (bubble->Pos() == pos)
 		{
 			return false;
 		}
@@ -399,7 +399,7 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 	return true;
 }
 
-bool GameLevel::CanBalloonBomb(const Vec2& pos)
+bool GameLevel::CanBubbleBomb(const Vec2& pos)
 {
 	// wall: 그리기 불가능
 	// ground, block, box, player: 그림
@@ -420,24 +420,24 @@ bool GameLevel::CanBalloonBomb(const Vec2& pos)
 }
 
 // 일종의 외부 setter
-void GameLevel::AddBalloon(Balloon* balloon)
+void GameLevel::AddBubble(Bubble* bubble)
 {
-	actors.PushBack(balloon); // 메모리 관리
-	balloons.PushBack(balloon); // 렌더링
+	actors.PushBack(bubble); // 메모리 관리
+	bubbles.PushBack(bubble); // 렌더링
 }
 
-void GameLevel::ProcessCollisionBalloonAndBlock()
+void GameLevel::ProcessCollisionBubbleAndBlock()
 {
 	// 예외처리
-	if (balloons.Size() == 0 || (blocks.Size() == 0 && boxes.Size() == 0))
+	if (bubbles.Size() == 0 || (blocks.Size() == 0 && boxes.Size() == 0))
 	{
 		return;
 	}
 
 	// 순회 (bomb인 경우만 충돌 감지)
-	for (auto* balloon : balloons)
+	for (auto* bubble : bubbles)
 	{ 
-		if (balloon->GetBalloonState() != BalloonState::Bombed)
+		if (bubble->GetBubbleState() != BubbleState::Bombed)
 		{
 			continue;
 		}
@@ -452,7 +452,7 @@ void GameLevel::ProcessCollisionBalloonAndBlock()
 			}
 
 			// 충돌 처리
-			if (balloon->Intersect(*block))
+			if (bubble->Intersect(*block))
 			{
 				blocks.Erase(i);
 				block->Destroy();
@@ -469,7 +469,7 @@ void GameLevel::ProcessCollisionBalloonAndBlock()
 			}
 
 			// 충돌 처리
-			if (balloon->Intersect(*box))
+			if (bubble->Intersect(*box))
 			{
 				boxes.Erase(i);
 				box->Destroy();
@@ -478,18 +478,18 @@ void GameLevel::ProcessCollisionBalloonAndBlock()
 	}
 }
 
-void GameLevel::ProcessCollisionBalloonAndPlayer()
+void GameLevel::ProcessCollisionBubbleAndPlayer()
 {
 	// 예외처리
-	if (balloons.Size() == 0 || players.Size() == 0)
+	if (bubbles.Size() == 0 || players.Size() == 0)
 	{
 		return;
 	}
 
 	// 순회 (bombed인 경우만 충돌 감지)
-	for (auto* balloon : balloons)
+	for (auto* bubble : bubbles)
 	{
-		if (balloon->GetBalloonState() != BalloonState::Bombed)
+		if (bubble->GetBubbleState() != BubbleState::Bombed)
 		{
 			continue;
 		}
@@ -501,7 +501,7 @@ void GameLevel::ProcessCollisionBalloonAndPlayer()
 				continue;
 			}
 
-			if (balloon->Intersect(*player))
+			if (bubble->Intersect(*player))
 			{
 				player->SetStateLocked();
 			}
@@ -509,15 +509,15 @@ void GameLevel::ProcessCollisionBalloonAndPlayer()
 	}
 }
 
-void GameLevel::DestroyFromBalloons(Balloon* balloon)
+void GameLevel::DestroyFromBubbles(Bubble* bubble)
 {
-	for (int i = 0; i < balloons.Size(); ++i)
+	for (int i = 0; i < bubbles.Size(); ++i)
 	{
-		if (balloons[i] == balloon)
+		if (bubbles[i] == bubble)
 		{
-			balloons.Erase(i);
-			balloon->OwnPlayer().SubCountBalloon();
-			balloon->Destroy();
+			bubbles.Erase(i);
+			bubble->OwnPlayer().SubCountBubble();
+			bubble->Destroy();
 		}
 	}
 }

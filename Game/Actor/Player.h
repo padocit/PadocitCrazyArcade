@@ -11,7 +11,7 @@ enum class PlayerState
 
 class InputHandler;
 class GameLevel;
-class Balloon;
+class Bubble;
 class Player : public RenderableActor
 {
 	GENERATED_BODY(Player, RenderableActor)
@@ -27,25 +27,25 @@ public:
 	void MoveRight();
 	void MoveUp();
 	void MoveDown();
-	void PutBalloon();
+	void PutBubble();
 	void UseItem();
 
 	// setter
-	inline void AddCountBalloon() 
+	inline void AddCountBubble() 
 	{ 
-		countBalloon = countBalloon + 1 <= maxCountBalloon ?
-			countBalloon + 1 : maxCountBalloon;
+		countBubble = countBubble + 1 <= maxCountBubble ?
+			countBubble + 1 : maxCountBubble;
 	}
-	inline void SubCountBalloon() 
+	inline void SubCountBubble() 
 	{ 
-		countBalloon = countBalloon - 1 >= 0 ?
-			countBalloon - 1 : 0;
+		countBubble = countBubble - 1 >= 0 ?
+			countBubble - 1 : 0;
 	}
 
 	void SetStateLocked();
 
-	// maxCountBalloon 증가 setter
-	inline void AddMaxCountBalloon() { ++maxCountBalloon; }
+	// maxCountBubble 증가 setter
+	inline void AddMaxCountBubble() { ++maxCountBubble; }
 
 
 private:
@@ -55,9 +55,9 @@ private:
 	// 게임 레벨 참조 (CanPlayerMove() 사용)
 	GameLevel* refLevel = nullptr;
 
-	// balloon 생성 가능 개수 (아이템으로 증가)
-	int maxCountBalloon; 
-	int countBalloon;
+	// bubble 생성 가능 개수 (아이템으로 증가)
+	int maxCountBubble; 
+	int countBubble;
 
 	PlayerState playerState;
 

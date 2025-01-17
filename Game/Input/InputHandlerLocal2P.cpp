@@ -4,7 +4,7 @@
 #include "Input/MoveRightCommand.h"
 #include "Input/MoveUpCommand.h"
 #include "Input/MoveDownCommand.h"
-#include "Input/PutBalloonCommand.h"
+#include "Input/PutBubbleCommand.h"
 
 #include <Engine/Engine.h>
 
@@ -14,7 +14,7 @@ InputHandlerLocal2P::InputHandlerLocal2P()
 	right = new MoveRightCommand();
 	up = new MoveUpCommand();
 	down = new MoveDownCommand();
-	period = new PutBalloonCommand();
+	period = new PutBubbleCommand();
 	// TODO: comma = item
 
 }
@@ -48,7 +48,7 @@ ICommand* InputHandlerLocal2P::HandleInput()
 		return down;
 	}
 
-	// Put Balloon
+	// Put Bubble
 	if (Engine::Get().GetKeyDown(VK_PERIOD))
 	{
 		return period;

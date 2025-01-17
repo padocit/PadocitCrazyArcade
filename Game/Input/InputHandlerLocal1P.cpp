@@ -4,7 +4,7 @@
 #include "Input/MoveRightCommand.h"
 #include "Input/MoveUpCommand.h"
 #include "Input/MoveDownCommand.h"
-#include "Input/PutBalloonCommand.h"
+#include "Input/PutBubbleCommand.h"
 
 #include <Engine/Engine.h>
 
@@ -15,7 +15,7 @@ InputHandlerLocal1P::InputHandlerLocal1P()
 	g = new MoveRightCommand();
 	r = new MoveUpCommand();
 	f = new MoveDownCommand();
-	s = new PutBalloonCommand();
+	s = new PutBubbleCommand();
 	// TODO: a = item
 }
 
@@ -48,7 +48,7 @@ ICommand* InputHandlerLocal1P::HandleInput()
 		return f;
 	}
 
-	// Put Balloon
+	// Put Bubble
 	if (Engine::Get().GetKeyDown(int('S')))
 	{
 		return s;

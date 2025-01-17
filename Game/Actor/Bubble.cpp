@@ -1,19 +1,19 @@
-#include "Balloon.h"
+#include "Bubble.h"
 #include "Level/GameLevel.h"
 #include "Game/Game.h"
 #include "Math/Vec2.h"
 
-Balloon::Balloon(const Vec2& pos, GameLevel* level, Player* ownPlayer)
+Bubble::Bubble(const Vec2& pos, GameLevel* level, Player* ownPlayer)
 	: RenderableActor("●"),
 	elapsedTime(0.0f), bombTime(1.5f), destroyTime(2.5f), 
 	refLevel(level), ownPlayer(ownPlayer)
 {
 	this->pos = pos;
 	color = Color::Cyan;
-	balloonState = BalloonState::Normal;
+	bubbleState = BubbleState::Normal;
 }
 
-void Balloon::Update(float deltaTime)
+void Bubble::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
@@ -25,15 +25,15 @@ void Balloon::Update(float deltaTime)
 	}
 	if (elapsedTime >= destroyTime)
 	{
-		refLevel->DestroyFromBalloons(this);
+		refLevel->DestroyFromBubbles(this);
 	}
 }
 
-void Balloon::Render()
+void Bubble::Render()
 {
 	Super::Render();
 
-	if (balloonState == BalloonState::Bombed)
+	if (bubbleState == BubbleState::Bombed)
 	{
 		// TODO: 물줄기 확장 => 물줄기 변수 크기 만큼 loop (ex. int step = 2 -> 십자 2칸씩)
 		Vec2 left = this->pos + Vec2(-1, 0);
@@ -42,26 +42,26 @@ void Balloon::Render()
 		Vec2 down = this->pos + Vec2(0, 1);
 
 		// 4방향 그리기
-		if (refLevel->CanBalloonBomb(left)) // left
+		if (refLevel->CanBubbleBomb(left)) // left
 		{
 			RenderConsole(left);
 		}
-		if (refLevel->CanBalloonBomb(right)) // right
+		if (refLevel->CanBubbleBomb(right)) // right
 		{
 			RenderConsole(right);
 		}
-		if (refLevel->CanBalloonBomb(up)) // up
+		if (refLevel->CanBubbleBomb(up)) // up
 		{
 			RenderConsole(up);
 		}
-		if (refLevel->CanBalloonBomb(down)) // down
+		if (refLevel->CanBubbleBomb(down)) // down
 		{
 			RenderConsole(down);
 		}
 	}
 }
 
-bool Balloon::Intersect(const RenderableActor& other)
+bool Bubble::Intersect(const RenderableActor& other)
 {
 	// other = 1x1 가정 중
 	Vec2 otherPos = other.Pos();
@@ -93,8 +93,8 @@ bool Balloon::Intersect(const RenderableActor& other)
 	return false;
 }
 
-void Balloon::SetStateBomb()
+void Bubble::SetStateBomb()
 {
-	balloonState = BalloonState::Bombed;
+	bubbleState = BubbleState::Bombed;
 	this->SetImage("+");
 }

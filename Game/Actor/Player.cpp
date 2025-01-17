@@ -2,14 +2,14 @@
 #include "Engine/Engine.h"
 #include "Game/Game.h"
 #include "Level/GameLevel.h"
-#include "Actor/Balloon.h"
+#include "Actor/Bubble.h"
 #include "Input/InputHandlerLocal1P.h"
 #include "Input/InputHandlerLocal2P.h"
 #include "Input/ICommand.h"
 
 Player::Player(const Vec2& pos, GameLevel* level, Color color, int id)
 	: RenderableActor("P"), refLevel(level), 
-	maxCountBalloon(1), countBalloon(0),
+	maxCountBubble(1), countBubble(0),
 	elapsedTimeLocked(0.0f), maxDeadTimeLocked(3.0f),
 	id(id)
 {
@@ -37,7 +37,7 @@ void Player::Update(float deltaTime)
 
 	if (playerState == PlayerState::Normal)
 	{
-		// Command: Move, PutBalloon, UseItem
+		// Command: Move, PutBubble, UseItem
 		if (playerController)
 		{
 			ICommand* command = playerController->HandleInput();
@@ -116,14 +116,14 @@ void Player::MoveDown()
 }
 
 
-void Player::PutBalloon()
+void Player::PutBubble()
 {
 	// 물풍선 생성
-	if (countBalloon < maxCountBalloon) // 더 생성 가능한가
+	if (countBubble < maxCountBubble) // 더 생성 가능한가
 	{
-		// GameLevel의 balloons에 추가
-		refLevel->AddBalloon(new Balloon(this->pos, refLevel, this));
-		AddCountBalloon();
+		// GameLevel의 bubbles에 추가
+		refLevel->AddBubble(new Bubble(this->pos, refLevel, this));
+		AddCountBubble();
 	}
 
 }

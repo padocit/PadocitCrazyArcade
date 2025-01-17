@@ -3,7 +3,7 @@
 #include <Input/ICommand.h>
 
 class RenderableActor;
-class PutBalloonCommand : public ICommand
+class PutBubbleCommand : public ICommand
 {
 public:
 	virtual void execute(RenderableActor& actor);
