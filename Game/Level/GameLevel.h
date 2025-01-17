@@ -48,13 +48,12 @@ private:
 private:
 	// 렌더링 순서 결정
 	Vector<RenderableActor*> map; // wall, ground (Up-cast)
-	Vector<Block*> blocks; // TODO: block <- box (상속, 업캐스팅 저장?)
+	Vector<Block*> blocks;
 	Vector<Box*> boxes;
 	Vector<Balloon*> balloons;
 
-	// TODO: 플레이어 여러명 관리 (container)
-	Vector<Player*> players;
-	//Player* player = nullptr;
+	// 플레이어 여러명 관리
+	Vector<Player*> players; //Player* player = nullptr;
 	int playerCount;
 	Vector<Color> playerColors;
 

@@ -393,7 +393,6 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 
 bool GameLevel::CanBalloonBomb(const Vec2& pos)
 {
-	// TODO: 구현 (Motive = CanPlayerMove)
 	// wall: 그리기 불가능
 	// ground, block, box, player: 그림
 
@@ -517,7 +516,7 @@ void GameLevel::DestroyFromBalloons(Balloon* balloon)
 
 void GameLevel::DestroyPlayer(Player* destroyPlayer)
 {
-	// TODO: players 순회하여 찾아서 제거
+	// players 순회하여 찾아서 제거
 	for (int i = 0; i < players.Size(); ++i)
 	{
 		if (players[i] == destroyPlayer)

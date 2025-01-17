@@ -23,7 +23,7 @@ class Balloon : public RenderableActor
 public:
 	Balloon(const Vec2& pos, GameLevel* level, Player* ownPlayer);
 
-	virtual void Update(float deltaTime) override; // TODO: ÇÊ¿ä?
+	virtual void Update(float deltaTime) override;
 	virtual void Render() override;
 
 	virtual bool Intersect(const RenderableActor& other) override;

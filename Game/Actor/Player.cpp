@@ -60,7 +60,7 @@ void Player::Update(float deltaTime)
 		elapsedTimeLocked += deltaTime;
 		if (elapsedTimeLocked >= maxDeadTimeLocked)
 		{
-			// TODO: 터지고 죽음
+			// 일정 시간 후 터지고 죽음
 			refLevel->DestroyPlayer(this);
 			return;
 		}
@@ -142,5 +142,5 @@ void Player::UseItem()
 void Player::SetStateLocked()
 {
 	playerState = PlayerState::Locked;
-	this->SetImage("○"); // TODO: 시간 지나면서 점점 차오르다가 터짐 ○ ◎ ●
+	this->SetImage("○"); // 시간 지나면서 점점 차오름 ○ ◎ ●
 }

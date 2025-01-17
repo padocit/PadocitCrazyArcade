@@ -21,7 +21,7 @@ public:
 
 	virtual void Update(float deltaTime) override;
 
-	void ClearPrevPosition();
+	void ClearPrevPosition(); // TODO: 문제 시 해당 덮어그리기 방식 수정
 
 	void MoveLeft();
 	void MoveRight();
@@ -44,7 +44,7 @@ public:
 
 	void SetStateLocked();
 
-	// TODO: maxCountBalloon 증가 setter
+	// maxCountBalloon 증가 setter
 	inline void AddMaxCountBalloon() { ++maxCountBalloon; }
 
 
