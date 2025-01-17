@@ -3,6 +3,8 @@
 #include "Level/Level.h"
 #include "Actor/Actor.h"
 
+#include <chrono>
+
 // static 변수 초기화
 Engine* Engine::instance = nullptr;
 
@@ -17,8 +19,10 @@ Engine::Engine()
 	: quit(false), mainLevel(nullptr), screenSize(40, 25)
 {
 	// random seed
-	srand(unsigned int(time(nullptr)));
-
+	unsigned int seed = static_cast<unsigned int>(
+		std::chrono::high_resolution_clock::now().time_since_epoch().count()
+		);
+	srand(seed);
 	// Singleton 객체 설정
 	instance = this;
 

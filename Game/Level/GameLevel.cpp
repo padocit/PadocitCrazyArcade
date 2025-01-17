@@ -51,6 +51,9 @@ GameLevel::GameLevel()
 	int xPos = 0;
 	int yPos = 0;
 
+	// 플레이어 랜덤 스폰 위치
+	Vector<Vec2> spawnPoints;
+
 	// Parsing (해석) - 한 문자씩 출력
 	while (index < int(bytesRead))
 	{
@@ -63,6 +66,7 @@ GameLevel::GameLevel()
 			continue;
 		}
 
+		/* Actors */
 		if (mapChar == 'H') // Wall 
 		{
 			//AddActor(new Wall(Vec2(xPos, yPos))); // 해당 함수는 한 프레임에 한 액터만 추가하므로 불가
@@ -102,12 +106,16 @@ GameLevel::GameLevel()
 			actors.PushBack(ground);
 			map.PushBack(ground);
 
-			player = new Player(Vec2(xPos, yPos), this);
-			actors.PushBack(player);
+			spawnPoints.PushBack(Vec2(xPos, yPos));
 		}
-
 		++xPos;
 	}
+	// 플레이어 랜덤 스폰
+	int idx = Random(0, int(spawnPoints.Size()));
+	Vec2 spawnPoint = spawnPoints[idx];
+	player = new Player(spawnPoint, this);
+	actors.PushBack(player);
+
 	delete[] buffer;
 
 	fclose(file);

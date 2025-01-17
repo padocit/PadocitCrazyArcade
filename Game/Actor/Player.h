@@ -53,6 +53,4 @@ private:
 	float oneDeadTimeLocked; // 1/3 maxDeadTimeLocked
 	float twoDeadTimeLocked; // 2/3 maxDeadTimeLocked
 
-	// TODO: 내가 생성한 balloon 주소 저장? (Kill/Death 기록 등에 참조?)
-	// X 현재 balloon에서 player 참조하므로 없어도 될듯함
 };

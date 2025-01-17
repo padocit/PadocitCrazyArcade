@@ -53,6 +53,7 @@ private:
 	Vector<Balloon*> balloons;
 
 	// TODO: 플레이어 여러명 관리 (container)
+	//Vector<Player*> players;
 	Player* player = nullptr;
 
 	bool isGameClear = false;
