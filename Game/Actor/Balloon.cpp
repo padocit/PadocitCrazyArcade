@@ -4,7 +4,7 @@
 #include "Math/Vec2.h"
 
 Balloon::Balloon(const Vec2& pos, GameLevel* level, Player* ownPlayer)
-	: RenderableActor("O"),
+	: RenderableActor("●"),
 	elapsedTime(0.0f), bombTime(1.5f), destroyTime(2.5f), 
 	refLevel(level), ownPlayer(ownPlayer)
 {
@@ -33,7 +33,7 @@ void Balloon::Render()
 {
 	Super::Render();
 
-	if (balloonState == BalloonState::Bomb)
+	if (balloonState == BalloonState::Bombed)
 	{
 		// TODO: 물줄기 확장 => 물줄기 변수 크기 만큼 loop (ex. int step = 2 -> 십자 2칸씩)
 		Vec2 left = this->pos + Vec2(-1, 0);
@@ -95,6 +95,6 @@ bool Balloon::Intersect(const RenderableActor& other)
 
 void Balloon::SetStateBomb()
 {
-	balloonState = BalloonState::Bomb;
+	balloonState = BalloonState::Bombed;
 	this->SetImage("+");
 }

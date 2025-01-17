@@ -11,7 +11,7 @@
 enum class BalloonState
 {
 	Normal,
-	Bomb,
+	Bombed,
 };
 
 class Player;

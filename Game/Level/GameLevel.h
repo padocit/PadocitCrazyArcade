@@ -28,11 +28,17 @@ public:
 	// 물풍선 추가
 	void AddBalloon(Balloon* balloon);
 
-	// 물풍선-block(box) 충돌처리
+	// 물풍선 vs block(box) 충돌
 	void ProcessCollisionBalloonAndBlock();
+	
+	// 물풍선 vs 플레이어 충돌
+	void ProcessCollisionBalloonAndPlayer();
 
 	// 물풍선 객체에서 호출하는 삭제 로직
 	void DestroyFromBalloons(Balloon* balloon);
+
+	// 플레이어 제거
+	void DestroyPlayer(Player* player);
 
 private:
 
@@ -46,6 +52,7 @@ private:
 	Vector<Box*> boxes;
 	Vector<Balloon*> balloons;
 
+	// TODO: 플레이어 여러명 관리 (container)
 	Player* player = nullptr;
 
 	bool isGameClear = false;

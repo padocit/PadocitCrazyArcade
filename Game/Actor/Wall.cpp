@@ -1,7 +1,7 @@
 #include "Wall.h"
 
 Wall::Wall(const Vec2& pos)
-	: RenderableActor("H")
+	: RenderableActor("I")
 {
 	this->pos = pos;
 	this->color = Color::Green;

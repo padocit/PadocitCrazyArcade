@@ -117,12 +117,12 @@ void GameLevel::Update(float deltaTime)
 {
 	Super::Update(deltaTime);
 
-	// TODO: 물풍선 순회 - bomb 상태라면 범위(offset) 내 block(box) destroy
-	// ProcessCollision 호출 -> Intersect 호출
+	// 물풍선 충돌 처리
 	ProcessCollisionBalloonAndBlock();
+	ProcessCollisionBalloonAndPlayer();
 
-	// TODO: 승/패
-	// 게임 클리어 = 게임 종료
+	// TODO: 승/패 출력
+	// 게임 클리어 = 종료
 	if (isGameClear)
 	{
 		// Engine의 Timer 사용
@@ -152,7 +152,7 @@ void GameLevel::Render()
 	// Map
 	for (auto* actor : map)
 	{
-		if (actor->Pos() == player->Pos())
+		if (player != nullptr && actor->Pos() == player->Pos())
 		{
 			continue;
 		}
@@ -177,7 +177,7 @@ void GameLevel::Render()
 		for (auto* balloon : balloons)
 		{
 			// bomb 상태라면, balloon이 가진 offset 만큼 검사
-			if (balloon->GetBalloonState() == BalloonState::Bomb)
+			if (balloon->GetBalloonState() == BalloonState::Bombed)
 			{
 				// x
 				if (actor->Pos().x >= balloon->Pos().x - balloon->BombOffset()
@@ -227,7 +227,10 @@ void GameLevel::Render()
 	}
 
 	// Player
-	player->Render();
+	if (player)
+	{
+		player->Render();
+	}
 }
 
 bool GameLevel::CanPlayerMove(const Vec2& pos)
@@ -252,6 +255,11 @@ bool GameLevel::CanPlayerMove(const Vec2& pos)
 	// 박스 밀기
 	if (searchedBox)
 	{
+		if (!player)
+		{
+			return false;
+		}
+
 		int directionX = pos.x - player->Pos().x;
 		int directionY = pos.y - player->Pos().y;
 
@@ -374,7 +382,7 @@ void GameLevel::ProcessCollisionBalloonAndBlock()
 	// 순회 (bomb인 경우만 충돌 감지)
 	for (auto* balloon : balloons)
 	{ 
-		if (balloon->GetBalloonState() != BalloonState::Bomb)
+		if (balloon->GetBalloonState() != BalloonState::Bombed)
 		{
 			continue;
 		}
@@ -415,6 +423,33 @@ void GameLevel::ProcessCollisionBalloonAndBlock()
 	}
 }
 
+void GameLevel::ProcessCollisionBalloonAndPlayer()
+{
+	// 예외처리
+	if (balloons.Size() == 0 || player == nullptr)
+	{
+		return;
+	}
+
+	// 순회 (bombed인 경우만 충돌 감지)
+	for (auto* balloon : balloons)
+	{
+		if (balloon->GetBalloonState() != BalloonState::Bombed)
+		{
+			continue;
+		}
+		if (!player->IsActive())
+		{
+			continue;
+		}
+
+		if (balloon->Intersect(*player))
+		{
+			player->SetStateLocked();
+		}
+	}
+}
+
 void GameLevel::DestroyFromBalloons(Balloon* balloon)
 {
 	for (int i = 0; i < balloons.Size(); ++i)
@@ -426,6 +461,13 @@ void GameLevel::DestroyFromBalloons(Balloon* balloon)
 			balloon->Destroy();
 		}
 	}
+}
+
+void GameLevel::DestroyPlayer(Player* player)
+{
+	// TODO: players 순회하여 찾아서 제거
+	this->player = nullptr;
+	player->Destroy();
 }
 
 //bool GameLevel::CheckGameClear()

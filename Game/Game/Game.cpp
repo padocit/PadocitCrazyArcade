@@ -32,6 +32,8 @@ Game::~Game()
 
 void Game::ToggleMenu()
 {
+	// TODO: 게임 타이머 정지
+
 	system("cls");
 	//Clear();
 	showMenu = !showMenu;
