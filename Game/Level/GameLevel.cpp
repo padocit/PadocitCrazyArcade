@@ -192,15 +192,16 @@ void GameLevel::Render()
 			continue;
 		}
 
+		// °ãÄ§ ¹æÁö
+		bool shouldRender = true;
 		for (auto* player : players)
 		{
 			if (actor->Pos() == player->Pos())
 			{
-				continue;
+				shouldRender = false;
+				break;
 			}
 		}
-
-		bool shouldRender = true;
 		for (auto* block : blocks)
 		{
 			if (actor->Pos() == block->Pos())
